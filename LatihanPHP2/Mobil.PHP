@@ -35,6 +35,20 @@
 
     $mobil_Anton = new mobil();
 
+          // Set Properti
+          $mobil_Anton-> warna  = "Putih";
+          $mobil_Anton-> merk = "Suzuki";
+  
+          // Tampilkan  Properti 
+          echo "Mobil_Anton";
+          echo "<br>Warna : ", $mobil_Anton->warna;
+          echo "<br>Merk : ", $mobil_Anton->merk;
+  
+          // Tampilkan Method
+          echo $mobil_Anton->maju();
+          echo "<br>";
+          echo $mobil_Anton->berhenti();
+
 
 
 
