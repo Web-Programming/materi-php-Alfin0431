@@ -17,3 +17,5 @@ Route::get('/beranda', function () {
 Route::get('/berita/', function ($id, $judul = null) {
     return view('berita', ['id' => $id, 'judul' => $judul]);
 });
+
+Route::resource('materi', App\Http\Controllers\MateriController::class);
