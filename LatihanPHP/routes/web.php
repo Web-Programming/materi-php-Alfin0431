@@ -19,3 +19,7 @@ Route::get('/berita/', function ($id, $judul = null) {
 });
 
 Route::resource('materi', App\Http\Controllers\MateriController::class);
+Route::resource('prodi', App\Http\Controllers\ProdiController::class);
+Route::resource('fakultas', App\Http\Controllers\FakultasController::class);
+Route::resource('mhs', App\Http\Controllers\MahasiswaController::class);
+Route::resource('dosen', App\Http\Controllers\DosenController::class);
