@@ -1,25 +1,27 @@
 <?php
 
+use App\Http\Controllers\ProdiController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/beranda', function () {
+Route::get('/home', function(){
     return view('beranda', 
     [
-        'name' => 'Angel',
-        'email' => 'angelstvny10@gmail.com',
-        'alamat' => 'Palembang']);
+            'name' => 'Nur Rachmat',
+            'email' => 'nurrachmat@gmail.com',
+            'alamat' => 'Palembang'
+        ]
+    );
 });
 
-Route::get('/berita/', function ($id, $judul = null) {
+Route::get('/berita/{id}/{judul?}', function($id, $judul = null){
     return view('berita', ['id' => $id, 'judul' => $judul]);
 });
 
-Route::resource('materi', App\Http\Controllers\MateriController::class);
-Route::resource('prodi', App\Http\Controllers\ProdiController::class);
-Route::resource('fakultas', App\Http\Controllers\FakultasController::class);
-Route::resource('mhs', App\Http\Controllers\MahasiswaController::class);
-Route::resource('dosen', App\Http\Controllers\DosenController::class);
+//membuat route ke halam prodi index melalui controller ProdiController
+//Route::get('/prodi/index', [ProdiController::class,'index']);
+
+Route::resource('prodi', ProdiController::class);
