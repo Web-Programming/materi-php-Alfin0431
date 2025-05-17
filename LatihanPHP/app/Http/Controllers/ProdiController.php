@@ -30,7 +30,19 @@ class ProdiController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validdateData = $request->validate([
+            'nama' => 'required|min:5|max:20',
+            'kode_prodi' => 'required|min:2|max:2',
+        ]
+    );
+
+    $prodi = new Prodi();
+    $prodi -> nama = $validdateData['nama'];
+    $prodi -> kode_prodi = $validdateData['kode_prodi'];
+    $prodi -> save();
+    
+    return redirect("prodi")->with("status",
+    "Data Program Studi berhasil disimpan");
     }
 
     /**
@@ -38,7 +50,9 @@ class ProdiController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $prodi = Prodi::find($id);
+
+        return view('prodi.detail',['detail.prodi' => $prodi]);
     }
 
     /**
@@ -46,7 +60,9 @@ class ProdiController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $prodi = Prodi::find($id);
+
+        return view('prodi.edit', ['detail.prodi' => $prodi]);
     }
 
     /**
