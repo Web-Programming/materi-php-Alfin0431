@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Prodi;
+use Illuminate\Database\Console\Migrations\StatusCommand;
 use Illuminate\Http\Request;
 
 class ProdiController extends Controller
@@ -62,7 +63,7 @@ class ProdiController extends Controller
     {
         $prodi = Prodi::find($id);
 
-        return view('prodi.edit', ['detail.prodi' => $prodi]);
+        return view('prodi.edit', ['prodi' => $prodi]);
     }
 
     /**
@@ -70,7 +71,18 @@ class ProdiController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $validdateData = $request->validate([
+            'nama' => 'required|min:5|max:20',
+            'kode_prodi' => 'required|min:2|max:2',
+        ]
+    );
+
+    $prodi = Prodi::find($id);
+    $prodi -> nama = $validdateData['nama'];
+    $prodi -> kode_prodi = $validdateData['kode_prodi'];
+    $prodi -> save();
+    
+    return view("prodi")->with("status","Data Program Studi berhasil Diubah");
     }
 
     /**
@@ -78,6 +90,8 @@ class ProdiController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $prodi = Prodi::find($id);
+        $prodi->delete();
+        return redirect("prodi")->with("status", "Data Program Berhasil Dihapus");
     }
 }
