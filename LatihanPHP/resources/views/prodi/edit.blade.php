@@ -1,6 +1,6 @@
 @extends('layout.master')
 
-@section('title', "Halaman List Prodi")
+@section('title', "Halaman Edit Prodi")
 
 @section('content')
         <!--begin::App Content Header-->
@@ -55,34 +55,26 @@
                     </div>
                   </div>
                   <div class="card-body">
-                      @if (session('status'))
-                          <div class="alert alert-success">
-                              {{ session('status') }}
-                          </div>
-                      @endif
-
-                      <form method="post" action="{{ url('prodi/',$prodi->id) }}">
-                          @csrf
-                          @method("PUT")
-                          <div class="mb-3">
-                              <label>Nama Prodi</label>
-                              <input type="text" name="nama" class="form-control" value="{{ old('nama', $prodi->nama) }}">
-                              @error('nama')
-                                  <div class="text-danger">{{ $message }}</div>
-                              @enderror
-                          </div>
-
-                          <div class="mb-3">
-                              <label>Kode Prodi</label>
-                              <input type="text" name="kode_prodi" class="form-control" value="{{ old('kode_prodi', $prodi->kode_prodi) }}">
-                              @error('kode_prodi')
-                                  <div class="text-danger">{{ $message }}</div>
-                              @enderror
-                          </div>
-
-                          <button type="submit" class="btn btn-primary">Update</button>
-                      </form>
-                  </div>
+                    
+                    <form method="post" action="{{ url("prodi/".$prodi->id) }}">
+                        @csrf
+                        @method('PUT')
+                      <div class="mb-3">
+                        <label >Nama Prodi</label>
+                        <input type="text" name="nama" class="form-control" value="{{ old('nama', $prodi->nama) }}">
+                        @error('nama')
+                          <div class="text-danger">{{ $message }}</div>
+                        @enderror
+                      </div>
+                      <div class="mb-3">
+                        <label>Kode Prodi</label>
+                        <input type="text" name="kode_prodi" class="form-control" value="{{ old('kode_prodi', $prodi->kode_prodi) }}">
+                        @error('kode_prodi')
+                          <div class="text-danger">{{ $message }}</div>
+                        @enderror
+                      </div>
+                      <button type="submit" class="btn btn-primary">Update</button>
+                    </form>
                   </div>
                   <!-- /.card-body -->
                   <div class="card-footer">Footer</div>

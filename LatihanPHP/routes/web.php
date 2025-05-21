@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\ProdiController;
 use Illuminate\Support\Facades\Route;
-use Symfony\Component\Console\Helper\ProgressIndicator;
 
 Route::get('/', function () {
     return view('welcome');
@@ -12,7 +11,7 @@ Route::get('/home', function(){
     return view('beranda', 
     [
             'name' => 'Alfin',
-            'email' => 'Alfinnn831@gmail.com',
+            'email' => 'alfinnn831@gmail.com',
             'alamat' => 'Palembang'
         ]
     );
