@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Prodi;
+use Gate;
+use Illuminate\Auth\Middleware\Authorize;
 use Illuminate\Http\Request;
 
 class ProdiController extends Controller
@@ -10,10 +12,12 @@ class ProdiController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index() {
+    public function index()
+    {
         $listprodi = Prodi::get();
-        return view("prodi.index", 
-        ['listprodi' => $listprodi]
+        return view(
+            "prodi.index",
+            ['listprodi' => $listprodi]
         );
     }
 
@@ -35,7 +39,7 @@ class ProdiController extends Controller
                 'nama' => 'required|min:5|max:20',
                 'kode_prodi' => 'required|min:2|max:2',
                 'logo' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048'
-                ]
+            ]
         );
 
         $prodi = new Prodi();
@@ -48,7 +52,7 @@ class ProdiController extends Controller
             $file->move(public_path('images'), $filename);
             $prodi->logo = $filename;
         }
-        
+
         $prodi->save();
 
         //Prodi::create([
@@ -64,6 +68,8 @@ class ProdiController extends Controller
      */
     public function show(string $id)
     {
+        Gate::authorize('view', Prodi::class);
+
         //select prodi by id
         $prodi = Prodi::find($id);
 
@@ -76,11 +82,14 @@ class ProdiController extends Controller
      */
     public function edit(string $id)
     {
+
+        Gate::authorize('edit', Prodi::class);
         //select prodi by id
         $prodi = Prodi::find($id);
 
         //buat view edit di folder view/prodi
-        return view("prodi.edit", 
+        return view(
+            "prodi.edit",
             ['prodi' => $prodi]
         );
     }
@@ -94,7 +103,7 @@ class ProdiController extends Controller
             [
                 'nama' => 'required|min:5|max:20',
                 'kode_prodi' => 'required|min:2|max:2'
-                ]
+            ]
         );
 
         $prodi = Prodi::find($id); //ambil data prodi berdasarkan id
@@ -103,7 +112,7 @@ class ProdiController extends Controller
         $prodi->save();
 
         return redirect("prodi")
-        ->with("status", "Data Program Studi berhasil diupdate!");
+            ->with("status", "Data Program Studi berhasil diupdate!");
     }
 
     /**
@@ -111,6 +120,8 @@ class ProdiController extends Controller
      */
     public function destroy(string $id)
     {
+        Gate::authorize('delete', Prodi::class);
+
         //ambil data prodi berdasarkan id
         $prodi = Prodi::find($id);
         //hapus data prodi
